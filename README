@@ -1,4 +1,9 @@
-This is your new Play application
+This is EMS Play application
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+Framework	:	Play
+FRM		:	Slick
+Database	:	MySQL
+FrontEnd	:	HTML/CSS
+
+Note : Code is a Primary key so it should be unique.
