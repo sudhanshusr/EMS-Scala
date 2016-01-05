@@ -9,11 +9,11 @@
 
 <form class="container" method="get" action='@routes.Application.addperson()'>
 <br>
-Code: <input type="text" name="id">
+Code: <input type="text" name="id" placeholder="Unique ID" required>
 <br><br>
-Name: <input type="text" name="FirstName">
+Name: <input type="text" name="FirstName" required>
 <br><br>
-City: <input type="text" name="city">
+City: <input type="text" name="city" required>
 <br>
 <button type="submit" class="btn btn-link">Add</button>
 </form>

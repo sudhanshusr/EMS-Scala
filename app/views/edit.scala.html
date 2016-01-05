@@ -10,11 +10,11 @@
 
 <form class="container" method="get" action='@routes.Application.editperson()'>
 <br>@for(p <- per){
-Code: <input type="text" name="id" value="@p.id">
+Code: <input type="text" name="id" value="@p.id" readonly>
 <br><br>
 Name: <input type="text" name="FirstName" value="@p.first_name">
 <br><br>
-Name: <input type="text" name="city" value="@p.city">}
+City: <input type="text" name="city" value="@p.city">}
 <br>
 <button type="submit" class="btn btn-link">Update</button>
 </form>
