@@ -1,4 +1,4 @@
-import scalariform.formatter.preferences._
+//import scalariform.formatter.preferences._
 name := "firstApp"
 
 version := "1.0-SNAPSHOT"
@@ -7,28 +7,43 @@ version := "1.0-SNAPSHOT"
 scalaVersion := "2.11.4"
 
 libraryDependencies ++= Seq(
-  "org.scalatestplus" % "play_2.10" % "1.3.0" % "test",
-  jdbc,
-  anorm,
-  cache,
   "mysql" % "mysql-connector-java" % "5.1.22",
-  "com.typesafe.slick" %% "slick" % "2.1.0",
-  "org.slf4j" % "slf4j-nop" % "1.6.4"
-)    
+  "com.typesafe.slick" %% "slick" % "2.1.0"
+)
 
-jacoco.settings
+//assemblySettings
+
+mainClass in assembly := Some("play.core.server.NettyServer")
+
+//fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)
+
+//fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)    
+
+//jacoco.settings
 
 play.Project.playScalaSettings
 
-//scalariform configurations
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    case PathList("javax", "servlet", xs @ _*) => MergeStrategy.last
+    case PathList("javax", "activation", xs @ _*) => MergeStrategy.last
+    case PathList("org", "apache", xs @ _*) => MergeStrategy.last
+    case PathList("com", "google", xs @ _*) => MergeStrategy.last
+    case PathList("com", "esotericsoftware", xs @ _*) => MergeStrategy.last
+    case PathList("com", "codahale", xs @ _*) => MergeStrategy.last
+    case PathList("com", "yammer", xs @ _*) => MergeStrategy.last
+    case "about.html" => MergeStrategy.rename
+    case "META-INF/ECLIPSEF.RSA" => MergeStrategy.last
+    case "META-INF/mailcap" => MergeStrategy.last
+    case "META-INF/mimetypes.default" => MergeStrategy.last
+    case "plugin.properties" => MergeStrategy.last
+	case "play/core/server/ServerWithStop.class" => MergeStrategy.first
+    case "log4j.properties" => MergeStrategy.last
+    case x => old(x)
+  }
+}
 
-scalariformSettings
-
-SbtScalariform.ScalariformKeys.preferences := SbtScalariform.ScalariformKeys.preferences.value.setPreference(AlignSingleLineCaseStatements, true)
-           .setPreference(DoubleIndentClassDeclaration, true).setPreference(AlignParameters, true).setPreference(PreserveDanglingCloseParenthesis, true)
-           .setPreference(SpaceInsideBrackets, true).setPreference(AlignArguments, true)
-
-// For Logging
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"
-
-		   
+assemblyMergeStrategy in assembly := {
+  case PathList("play", "core", "server", "ServerWithStop.class") => MergeStrategy.first
+  case other => (assemblyMergeStrategy in assembly).value(other)
+}
