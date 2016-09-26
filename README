@@ -7,3 +7,62 @@ Database	:	MySQL
 FrontEnd	:	HTML/CSS
 
 Note : Code is a Primary key so it should be unique.
+
+
+SBT Configuration:
+
+1) Install Sbt from ct-share "Utilities for all" or Just copy it from ALM_IS Sudhanshu_backup.
+
+2) Configure environment variable :- add below to the path
+
+C:\Program Files (x86)\sbt\bin;  
+
+3) Check with "sbt --version" in CMD.
+
+
+Database Configuration:
+
+1) Go to EMS-Scala\app\models\DBUtils
+
+2) Open DBUtils into text editor and change the IP of the JDBC URL to the machine IP where Database is to be installed.
+
+3) Install MySQL to that machine.
+
+4) Open MySQL Client and drop the Dump_Test.sql with \. prefix 
+
+mysql> \. C:\Users\sudhanshusr\Desktop\EMS Scala\EMS-Scala\Dump_Test.sql
+
+This will create database and add some dummy data.
+
+
+Running Application:
+
+1) Go to the application -> find build.sbt file , open CMD prompt on that location.
+
+2) run sbt : this will take you to application sbt console
+
+3) then run the following commands
+     1) clean
+	 2) compile
+	 3) assembly
+	 
+4) "assembly" command  will create a jar.
+
+5) Now go the location(target/scala2.0/) bearing the jar, just type 
+
+java -jar jarname.jar
+
+this will run the Application on localhost:9000
+
+
+Issues Faced:
+
+1) Make sure 9000 port is free. By default,sonarqube server runs on 9000.
+
+2) Unable to resolve dependency:
+
+Ask ALM_IS for the dependencies. I have shared it with the IS team.
+
+Just Copy those to C:\Users\{yourusername}\.ivy2\cache 
+
+	 
